@@ -1,0 +1,16 @@
+{
+  "name": "country",
+  "version": "1.0.0",
+  "description": "Covid Country",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mahesh",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/federation": "^0.23.2",
+    "apollo-server": "^2.23.0",
+    "graphsql": "^0.0.0"
+  }
+}
