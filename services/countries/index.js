@@ -7,7 +7,6 @@ const countries = [
         positiveCases : 100
     },
     {
-
         name : "UK",
         positiveCases: 200
     }
@@ -16,7 +15,7 @@ const countries = [
 
 const typeDefs = gql`
   extend type Query {
-    me: Country
+    countries: [Country]
   }
   type Country @key(fields: "name") {
     name: String
@@ -26,8 +25,11 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        me() {
-            return countries[0];
+        countries() {
+            return countries;
+        },
+        country(parent, args, context, info) {
+            return countries.find(country => country.name === args.name);
         }
     },
     Country: {
