@@ -9,6 +9,10 @@ const countries = [
     {
         name : "UK",
         positiveCases: 200
+    },
+    {
+        name : "CHN",
+        positiveCases: 890
     }
 ];
 
