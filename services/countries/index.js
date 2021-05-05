@@ -25,6 +25,9 @@ const typeDefs = gql`
     name: String
     positiveCases: Int
   }
+   type Mutation {
+    post(country: String!, positiveCases: Int!): [Country]
+  }
 `;
 
 const resolvers = {
@@ -40,8 +43,39 @@ const resolvers = {
         __resolveReference(object) {
             return countries.find(country => country.name === object.name);
         }
+    },
+    Mutation: {
+        post: (parent, args) => {
+            const country = {
+                name: args.country,
+                positiveCases: args.positiveCases,
+            }
+            //console.log(country.name);
+            let exists =false;
+            countries.forEach((x) => {
+                if (x.name === country.name) {
+                    x.positiveCases = country.positiveCases;
+                    exists=true;
+                    return;
+                }
+            });
+
+            if(!exists) {
+                countries.push(country);
+            }
+           //console.log(countries);
+            return countries;
+        }
     }
 };
+
+function _isContains(json, keyname, value) {
+
+    return Object.keys(json).some(key => {
+        return typeof json[key] === 'object' ?
+            _isContains(json[key], keyname, value) : key === keyname && json[key] === value;
+    });
+}
 
 const server = new ApolloServer({
     schema: buildFederatedSchema([
